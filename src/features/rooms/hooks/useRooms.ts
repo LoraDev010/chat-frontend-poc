@@ -7,7 +7,7 @@ import { DEFAULT_SERVER_URL } from '../../../shared/constants/app';
 
 type TypedSocket = Socket<ServerToClientEvents, ClientToServerEvents>;
 
-const SERVER_URL = (import.meta as Record<string, unknown> & { env: Record<string, string> }).env.VITE_SERVER_URL || DEFAULT_SERVER_URL;
+const SERVER_URL = import.meta.env?.VITE_SERVER_URL || DEFAULT_SERVER_URL;
 
 export interface RoomActionError {
   code: number;
