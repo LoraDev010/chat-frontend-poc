@@ -1,4 +1,5 @@
 import { useState, useRef, type FormEvent } from 'react';
+import { Send } from 'lucide-react';
 import { EmojiPicker } from './EmojiPicker';
 import { MAX_MESSAGE_LENGTH } from '../constants/chat';
 
@@ -49,7 +50,10 @@ export function Composer({ onSend, onTyping }: ComposerProps) {
         placeholder="Escribe un mensaje…"
         autoComplete="off"
       />
-      <button type="submit">Enviar</button>
+      <button type="submit" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+        <Send size={18} />
+        Enviar
+      </button>
     </form>
   );
 }

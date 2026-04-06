@@ -1,3 +1,4 @@
+import { UserX } from 'lucide-react';
 import type { Socket } from 'socket.io-client';
 import type { ServerToClientEvents, ClientToServerEvents } from '../../../shared/types/socket.types';
 
@@ -31,7 +32,14 @@ export function UserSidebar({ users, currentAlias, room, getSocket }: UserSideba
           >
             <span>{u}</span>
             {u !== currentAlias && (
-              <button className="kick-btn" onClick={() => handleKick(u)}>kick</button>
+              <button 
+                className="kick-btn" 
+                onClick={() => handleKick(u)}
+                style={{ display: 'flex', alignItems: 'center', gap: '4px' }}
+              >
+                <UserX size={14} />
+                kick
+              </button>
             )}
           </li>
         ))}

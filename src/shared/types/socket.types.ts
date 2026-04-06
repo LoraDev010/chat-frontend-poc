@@ -63,7 +63,7 @@ export interface ClientToServerEvents {
   create_room: (data: CreateRoomDTO, ack: (res: CreateRoomAck) => void) => void;
   join_room_by_code: (data: JoinByCodeDTO, ack: (res: JoinAck) => void) => void;
   delete_room: (data: DeleteRoomDTO, ack: (res: SimpleAck) => void) => void;
-  list_my_rooms: (data: { alias: string }, ack: (res: ListRoomsAck) => void) => void;
+  list_my_rooms: (data: { alias?: string }, ack: (res: ListRoomsAck) => void) => void;
 }
 
 // Room management DTOs
@@ -79,6 +79,7 @@ export interface JoinByCodeDTO {
 
 export interface DeleteRoomDTO {
   roomId: string;
+  alias: string;
 }
 
 export interface RoomInfo {
@@ -86,6 +87,8 @@ export interface RoomInfo {
   name: string;
   code: string;
   userCount: number;
+  isOwner: boolean;
+  isActive: boolean;
 }
 
 export interface CreateRoomAck {
@@ -94,6 +97,7 @@ export interface CreateRoomAck {
   message?: string;
   roomId?: string;
   roomCode?: string;
+  roomName?: string;
 }
 
 export interface ListRoomsAck {

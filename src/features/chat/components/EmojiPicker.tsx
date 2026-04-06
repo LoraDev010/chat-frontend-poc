@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { Smile } from 'lucide-react';
 import { EMOJI_CATEGORIES } from '../types/chat.types';
 
 interface EmojiPickerProps {
@@ -27,7 +28,10 @@ export function EmojiPicker({ onSelect }: EmojiPickerProps) {
         className="emoji-toggle-btn"
         onClick={() => setShow((v) => !v)}
         title="Emojis"
-      >😊</button>
+        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+      >
+        <Smile size={20} />
+      </button>
       {show && (
         <div className="emoji-picker">
           <div className="emoji-categories">

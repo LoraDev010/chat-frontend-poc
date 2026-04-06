@@ -39,6 +39,15 @@ body {
   justify-content: center;
   height: 100vh;
   overflow: auto;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+/* Responsive: móviles */
+@media (max-width: 480px) {
+  .page.center {
+    padding: 12px;
+  }
 }
 
 .top-bar {
@@ -275,9 +284,31 @@ body {
   border-radius: 10px;
   padding: 42px;
   width: 460px;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+/* Responsive: tablets */
+@media (max-width: 768px) {
+  .card {
+    width: 100%;
+    padding: 32px 24px;
+  }
+}
+
+/* Responsive: móviles */
+@media (max-width: 480px) {
+  .card {
+    width: 100%;
+    padding: 20px 16px;
+    border-radius: 8px;
+  }
+  
+  .card h2 {
+    font-size: 1.3rem;
+  }
 }
 
 .card h2 {
@@ -329,6 +360,14 @@ body {
 .card button:disabled {
   opacity: 0.4;
   cursor: not-allowed;
+}
+
+/* Responsive: botones en móvil */
+@media (max-width: 480px) {
+  .card button {
+    font-size: 1rem;
+    padding: 12px;
+  }
 }
 
 /* ── Scrollbar ── */

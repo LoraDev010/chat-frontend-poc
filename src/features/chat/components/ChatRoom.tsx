@@ -1,4 +1,5 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
+import { Copy, Check, LogOut, Users } from 'lucide-react';
 import { useSocket } from '../hooks/useSocket';
 import { useChatMessages } from '../hooks/useChatMessages';
 import { useTypingIndicator } from '../hooks/useTypingIndicator';
@@ -21,6 +22,7 @@ interface ChatRoomProps {
 
 export function ChatRoom({ alias, room, rooms, activeRoomId, onSwitchRoom, onLeave }: ChatRoomProps) {
   const { toasts, addToast } = useToast();
+  const [copied, setCopied] = useState(false);
 
   const onKicked = useCallback(() => {
     onLeave();
@@ -39,6 +41,22 @@ export function ChatRoom({ alias, room, rooms, activeRoomId, onSwitchRoom, onLea
     onLeave();
   };
 
+  const activeRoom = rooms.find((r) => r.id === activeRoomId);
+  const roomName = activeRoom?.name || room;
+  const roomCode = activeRoom?.code;
+
+  const handleCopyCode = async () => {
+    if (!roomCode) return;
+    try {
+      await navigator.clipboard.writeText(roomCode);
+      setCopied(true);
+      addToast('Código copiado al portapapeles', 'info');
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      addToast('Error al copiar código', 'error');
+    }
+  };
+
   return (
     <div className="page">
       {!connected && (
@@ -50,13 +68,68 @@ export function ChatRoom({ alias, room, rooms, activeRoomId, onSwitchRoom, onLea
       <RoomTabs rooms={rooms} activeRoomId={activeRoomId} onSwitch={onSwitchRoom} />
 
       <div className="top-bar">
-        <span><span style={{ color: 'var(--accent)' }}>chatDev</span> › {room}</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <span>
+            <span style={{ color: 'var(--accent)' }}>Chat POC</span> › {roomName}
+          </span>
+          {roomCode && (
+            <button
+              onClick={handleCopyCode}
+              style={{
+                background: copied ? 'var(--accent)' : 'var(--bg3)',
+                border: `1px solid ${copied ? 'var(--accent)' : 'var(--border)'}`,
+                color: copied ? 'var(--bg)' : 'var(--accent2)',
+                padding: '4px 12px',
+                borderRadius: '4px',
+                fontFamily: "'Courier New', Courier, monospace",
+                fontSize: '0.9rem',
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                fontWeight: 'bold',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+              }}
+              title="Copiar código de sala"
+            >
+              {copied ? (
+                <>
+                  <Check size={16} />
+                  Copiado
+                </>
+              ) : (
+                <>
+                  <Copy size={16} />
+                  {roomCode}
+                </>
+              )}
+            </button>
+          )}
+        </div>
         <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-          <span>👥 {users.length} conectados · <span style={{ color: 'var(--accent2)' }}>{alias}</span></span>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <Users size={18} />
+            {users.length} conectados · <span style={{ color: 'var(--accent2)' }}>{alias}</span>
+          </span>
           <button
-            style={{ background: 'transparent', border: '1px solid var(--danger)', color: 'var(--danger)', padding: '3px 14px', borderRadius: '4px', fontFamily: 'inherit', fontSize: '1.05rem', cursor: 'pointer' }}
+            style={{ 
+              background: 'transparent', 
+              border: '1px solid var(--danger)', 
+              color: 'var(--danger)', 
+              padding: '6px 14px', 
+              borderRadius: '4px', 
+              fontFamily: 'inherit', 
+              fontSize: '1.05rem', 
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+            }}
             onClick={handleLeave}
-          >Salir</button>
+          >
+            <LogOut size={16} />
+            Salir
+          </button>
         </div>
       </div>
 

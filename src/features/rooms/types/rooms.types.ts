@@ -3,4 +3,6 @@ export interface RoomInfo {
   name: string;
   code: string;
   userCount: number;
+  isOwner: boolean;
+  isActive: boolean;
 }

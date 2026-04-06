@@ -1,53 +1,85 @@
 # Chat Frontend
 
-Cliente web para aplicación de chat en tiempo real con salas públicas.
+Cliente React con Socket.io para chat en tiempo real. Para instrucciones completas de setup con Docker, ver el [README principal](../../README.md).
 
-## Stack Tecnológico
+## Stack
 
-- **React 18** con TypeScript
-- **Vite** como build tool
-- **Socket.io Client** para comunicación real-time
-- **Arquitectura modular** basada en features
+- React 18 + TypeScript 5
+- Vite 8 como build tool
+- Socket.io Client 4
+- Arquitectura por features
 
 ## Estructura
 
 ```
 src/
-├── app/              # Componente raíz
-├── features/         # Features modulares
-│   ├── auth/        # Autenticación (alias)
-│   ├── chat/        # Sala de chat
-│   └── rooms/       # Gestión de salas
-└── shared/          # Componentes y tipos compartidos
+├── app/
+│   └── App.tsx                 # Componente raíz, state global
+├── features/
+│   ├── auth/
+│   │   └── AliasScreen.tsx     # Pantalla de ingreso de alias
+│   ├── chat/
+│   │   ├── components/         # ChatRoom, MessageList, Composer, etc.
+│   │   └── hooks/              # useSocket, useChatMessages, useTypingIndicator
+│   └── rooms/
+│       ├── components/         # LobbyScreen, RoomList
+│       └── hooks/              # useRooms
+└── shared/
+    ├── components/             # Toast, reutilizables
+    ├── hooks/                  # useToast
+    ├── types/                  # Socket.io types
+    └── constants/              # URLs, configuración
 ```
 
-## Setup
-
-### Instalación
+## Setup Local (Sin Docker)
 
 ```bash
+# Instalar dependencias
 npm install
-```
 
-### Desarrollo
+# Desarrollo
+npm run dev              # http://localhost:5173
 
-```bash
-npm run dev
-```
-
-El cliente estará disponible en `http://localhost:5173`
-
-### Build
-
-```bash
+# Build
 npm run build
-```
 
-### Preview
-
-```bash
+# Preview
 npm run preview
 ```
+
+## Variables de Entorno
+
+```env
+VITE_SERVER_URL=http://localhost:3000
+```
+
+Si no se define, usa `http://localhost:3000` por defecto.
+
+## Features
+
+- Salas públicas con códigos de 6 caracteres
+- Mensajes en tiempo real
+- Indicador de "escribiendo..."
+- Lista de usuarios activos
+- Tabs para múltiples salas
+- Sistema de bans temporales
+- Toasts para notificaciones
+
+## Arquitectura
+
+```
+App.tsx (State: alias, rooms[], activeRoomId)
+    ↓
+LobbyScreen / ChatRoom (según estado)
+    ↓
+Custom Hooks (useSocket, useChatMessages, etc.)
+    ↓
+Socket.io Client
+```
+
+## Documentación
+
+Ver instrucciones de arquitectura en `.github/instructions/react-architecture.instructions.md` del proyecto principal.
 
 ## Configuración
 

@@ -1,3 +1,4 @@
+import { MessageSquare } from 'lucide-react';
 import type { ActiveRoom } from '../../../shared/types/socket.types';
 
 interface RoomTabsProps {
@@ -34,8 +35,12 @@ export function RoomTabs({ rooms, activeRoomId, onSwitch }: RoomTabsProps) {
             fontSize: '0.95rem',
             cursor: 'pointer',
             whiteSpace: 'nowrap',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
           }}
         >
+          <MessageSquare size={16} />
           {room.name}
         </button>
       ))}

@@ -70,7 +70,7 @@ export function useRooms(alias: string) {
         const s = socketRef.current;
         if (!s) return resolve({ error: { code: 0, message: 'not_connected' } });
         const emit = () =>
-          s.emit('delete_room', { roomId }, (res) => {
+          s.emit('delete_room', { roomId, alias }, (res) => {
             if (res.ok) {
               resolve({});
             } else {
@@ -80,7 +80,7 @@ export function useRooms(alias: string) {
         s.connected ? emit() : s.once('connect', emit);
       });
     },
-    [],
+    [alias],
   );
 
   const listMyRooms = useCallback((): Promise<RoomInfo[]> => {
