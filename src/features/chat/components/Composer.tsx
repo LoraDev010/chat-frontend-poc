@@ -1,5 +1,6 @@
 import { useState, useRef, type FormEvent } from 'react';
 import { EmojiPicker } from './EmojiPicker';
+import { MAX_MESSAGE_LENGTH } from '../constants/chat';
 
 interface ComposerProps {
   onSend: (text: string) => void;
@@ -44,7 +45,7 @@ export function Composer({ onSend, onTyping }: ComposerProps) {
         ref={inputRef}
         value={text}
         onChange={handleTextChange}
-        maxLength={1000}
+        maxLength={MAX_MESSAGE_LENGTH}
         placeholder="Escribe un mensaje…"
         autoComplete="off"
       />

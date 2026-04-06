@@ -3,10 +3,11 @@ import { io } from 'socket.io-client';
 import type { Socket } from 'socket.io-client';
 import type { ServerToClientEvents, ClientToServerEvents } from '../../../shared/types/socket.types';
 import type { RoomInfo } from '../types/rooms.types';
+import { DEFAULT_SERVER_URL } from '../../../shared/constants/app';
 
 type TypedSocket = Socket<ServerToClientEvents, ClientToServerEvents>;
 
-const SERVER_URL = (import.meta as Record<string, unknown> & { env: Record<string, string> }).env.VITE_SERVER_URL || 'http://localhost:3000';
+const SERVER_URL = (import.meta as Record<string, unknown> & { env: Record<string, string> }).env.VITE_SERVER_URL || DEFAULT_SERVER_URL;
 
 export interface RoomActionError {
   code: number;

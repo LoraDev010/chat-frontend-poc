@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { io, type Socket } from 'socket.io-client';
 import type { ServerToClientEvents, ClientToServerEvents } from '../../../shared/types/socket.types';
+import { KICKED_DELAY_MS } from '../constants/chat';
+import { DEFAULT_SERVER_URL } from '../../../shared/constants/app';
 
 type TypedSocket = Socket<ServerToClientEvents, ClientToServerEvents>;
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:3000';
+const SERVER_URL = import.meta.env.VITE_SERVER_URL || DEFAULT_SERVER_URL;
 
 /**
  * Gestiona el ciclo de vida de la conexión Socket.io para una sesión de sala de chat.
@@ -64,7 +66,7 @@ export function useSocket(
       if (info.alias === alias) {
         addToast('Has sido expulsado de la sala', 'error');
         s.disconnect();
-        setTimeout(onKicked, 2000);
+        setTimeout(onKicked, KICKED_DELAY_MS);
       }
     });
 

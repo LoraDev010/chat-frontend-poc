@@ -2,14 +2,14 @@
 
 Cliente web para aplicación de chat en tiempo real con salas públicas.
 
-## 🚀 Stack Tecnológico
+## Stack Tecnológico
 
 - **React 18** con TypeScript
 - **Vite** como build tool
 - **Socket.io Client** para comunicación real-time
 - **Arquitectura modular** basada en features
 
-## 📁 Estructura
+## Estructura
 
 ```
 src/
@@ -21,7 +21,7 @@ src/
 └── shared/          # Componentes y tipos compartidos
 ```
 
-## 🛠️ Setup
+## Setup
 
 ### Instalación
 
@@ -49,20 +49,20 @@ npm run build
 npm run preview
 ```
 
-## 🔧 Configuración
+## Configuración
 
 El cliente se conecta por defecto a `http://localhost:3000` (backend).
 
 Para cambiar la URL del servidor, edita la conexión en `src/features/chat/hooks/useSocket.ts`
 
-## 📦 Scripts Disponibles
+## Scripts Disponibles
 
 - `npm run dev` - Inicia servidor de desarrollo
 - `npm run build` - Genera build de producción
 - `npm run preview` - Previsualiza build de producción
 - `npm run lint` - Ejecuta ESLint
 
-## 🏗️ Arquitectura
+## Arquitectura
 
 Este proyecto sigue una arquitectura modular basada en features:
 
@@ -70,7 +70,7 @@ Este proyecto sigue una arquitectura modular basada en features:
 - Separación clara entre componentes, hooks y tipos
 - Componentes y hooks compartidos en `shared/`
 
-## 📝 Notas
+## Notas
 
 - Sin autenticación formal (solo alias)
 - Salas públicas sin persistencia

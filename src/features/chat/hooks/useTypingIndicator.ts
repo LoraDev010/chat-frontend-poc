@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import type { Socket } from 'socket.io-client';
 import type { ServerToClientEvents, ClientToServerEvents } from '../../../shared/types/socket.types';
+import { TYPING_TIMEOUT_MS, TYPING_EMIT_INTERVAL_MS } from '../constants/chat';
 
 type TypedSocket = Socket<ServerToClientEvents, ClientToServerEvents>;
 
@@ -48,7 +49,7 @@ export function useTypingIndicator(getSocket: () => TypedSocket | null, room: st
           return next;
         });
         timersRef.current.delete(alias);
-      }, 2000);
+      }, TYPING_TIMEOUT_MS);
 
       timersRef.current.set(alias, timer);
     };
@@ -64,7 +65,7 @@ export function useTypingIndicator(getSocket: () => TypedSocket | null, room: st
 
   const emitTyping = useCallback(() => {
     const now = Date.now();
-    if (now - lastEmitRef.current < 1000) return;
+    if (now - lastEmitRef.current < TYPING_EMIT_INTERVAL_MS) return;
     lastEmitRef.current = now;
     const s = getSocket();
     if (s) s.emit('typing', { room });

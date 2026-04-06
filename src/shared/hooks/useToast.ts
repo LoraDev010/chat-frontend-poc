@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef } from 'react';
+import { TOAST_DURATION_MS } from '../constants/app';
 
 export interface Toast {
   id: number;
@@ -15,7 +16,7 @@ export function useToast() {
     setToasts((prev) => [...prev, { id, msg, type }]);
     setTimeout(() => {
       setToasts((prev) => prev.filter((t) => t.id !== id));
-    }, 4000);
+    }, TOAST_DURATION_MS);
   }, []);
 
   return { toasts, addToast };
